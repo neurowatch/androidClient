@@ -1,21 +1,20 @@
 package me.lgcode.neurowatch.repo
 
+import androidx.paging.PagingData
+import androidx.paging.map
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import me.lgcode.neurowatch.api.NeurowatchApi
+import me.lgcode.neurowatch.datasource.NeurowatchDataSource
 import me.lgcode.neurowatch.model.VideoClip
 import timber.log.Timber
 import javax.inject.Inject
 
-class NeurowatchRepo @Inject constructor(val api: NeurowatchApi) {
+class NeurowatchRepo @Inject constructor(val dataSource: NeurowatchDataSource) {
     
-    suspend fun getVideos(): Result<List<VideoClip>> {
-        val result = api.getVideos()
-        return if (result.isSuccessful) {
-            result.body()?.let { 
-                Result.success(it)
-            } ?: Result.failure(Throwable("videos could not be fetch"))
-        } else {
-            Timber.e(result.errorBody()?.string())
-            Result.failure(Throwable("videos could not be fetch"))
+    fun getVideos(): Flow<PagingData<VideoClip>> {
+        return dataSource.getVideos().map { pagingData ->
+            pagingData.map { it }
         }
     }
 }

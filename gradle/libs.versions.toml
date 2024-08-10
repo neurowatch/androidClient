@@ -13,6 +13,7 @@ retrofit = "2.11.0"
 loggingInterceptor = "3.12.0"
 gson = "2.10.1"
 timber = "5.0.1"
+paging3 = "3.3.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -36,6 +37,8 @@ retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-
 logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
+paging3 = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging3" }
+paging3-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging3" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

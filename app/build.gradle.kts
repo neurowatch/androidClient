@@ -68,6 +68,8 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.timber)
+    implementation(libs.paging3)
+    implementation(libs.paging3.compose)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
