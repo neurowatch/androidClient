@@ -1,5 +1,7 @@
 package me.lgcode.neurowatch.api
 
+import me.lgcode.neurowatch.model.LoginRequest
+import me.lgcode.neurowatch.model.LoginResponse
 import me.lgcode.neurowatch.model.Settings
 import me.lgcode.neurowatch.model.VideoClip
 import retrofit2.Response
@@ -21,4 +23,11 @@ interface NeurowatchApi {
     @POST
     suspend fun updateSettings(@Body settings: Settings): Response<Unit>
     
+    @POST("login")
+    suspend fun login(
+        @Body loginRequest: LoginRequest
+    ): Response<LoginResponse>
+    
+    @POST("logout")
+    suspend fun logout(): Response<Unit>
 }

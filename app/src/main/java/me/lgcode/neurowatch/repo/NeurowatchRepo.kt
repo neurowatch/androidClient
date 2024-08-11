@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.lgcode.neurowatch.api.NeurowatchApi
 import me.lgcode.neurowatch.datasource.NeurowatchDataSource
+import me.lgcode.neurowatch.model.LoginRequest
 import me.lgcode.neurowatch.model.VideoClip
 import timber.log.Timber
 import javax.inject.Inject
@@ -17,4 +18,6 @@ class NeurowatchRepo @Inject constructor(val dataSource: NeurowatchDataSource) {
             pagingData.map { it }
         }
     }
+
+    suspend fun login(loginRequest: LoginRequest) = dataSource.login(loginRequest)
 }

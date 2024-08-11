@@ -1,3 +1,6 @@
 package me.lgcode.neurowatch.model
 
-data class LoginRequest()
+data class LoginRequest(
+    val username: String,
+    val passowrd: String
+)

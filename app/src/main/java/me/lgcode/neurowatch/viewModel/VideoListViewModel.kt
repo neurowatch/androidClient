@@ -11,7 +11,7 @@ import me.lgcode.neurowatch.repo.NeurowatchRepo
 import javax.inject.Inject
 
 @HiltViewModel
-class NeurowatchViewModel @Inject constructor(val repo: NeurowatchRepo): ViewModel() {
+class VideoListViewModel @Inject constructor(val repo: NeurowatchRepo): ViewModel() {
     
     val videoClips: Flow<PagingData<VideoClip>> = repo.getVideos().cachedIn(viewModelScope)
 }
