@@ -7,12 +7,13 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import me.lgcode.neurowatch.viewModel.LoginViewModel
 import me.lgcode.neurowatch.viewModel.VideoListViewModel
 
 @Composable
 fun NeurowatchNavHost(
-    modifier: Modifier,
-    startDestination: String = NavigationItem.VideoClipDetail.route
+    modifier: Modifier = Modifier,
+    startDestination: String = "login",
 ) {
     
     val navController = rememberNavController()
@@ -22,31 +23,19 @@ fun NeurowatchNavHost(
         navController = navController,
         startDestination = startDestination,
     ) {
-        composable(Screen.LOGIN.name) {
+        composable("login") {
+            val viewModel = hiltViewModel<LoginViewModel>()
+            LoginScreen(viewModel, navController)
+        }
+        composable("settings") {
             
         }
-        composable(Screen.SETTINGS.name) {
-            
+        composable("video_detail/{id}") { navBackStackEntry ->
+            //VideoDetailScreen(navBackStackEntry.arguments?.getString("id"))
         }
-        composable(Screen.VIDEO_CLIP_DETAIL.name) { 
-        }
-        composable(Screen.VIDEO_CLIP_LIST.name) {
+        composable("video_list") {
             val viewModel = hiltViewModel<VideoListViewModel>()
             VideoListScreen(viewModel, navController)
         }
     }
-}
-
-enum class Screen {
-    LOGIN, 
-    SETTINGS,
-    VIDEO_CLIP_DETAIL,
-    VIDEO_CLIP_LIST,
-}
-
-sealed class NavigationItem(val route: String) {
-    data object Login : NavigationItem(Screen.LOGIN.name)
-    data object Settings : NavigationItem(Screen.SETTINGS.name)
-    data object VideoClipDetail : NavigationItem(Screen.VIDEO_CLIP_DETAIL.name)
-    data object VideoClipList : NavigationItem(Screen.VIDEO_CLIP_LIST.name)
 }

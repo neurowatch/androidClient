@@ -1,13 +1,16 @@
 package me.lgcode.neurowatch.db
 
-import android.net.Uri
 import androidx.room.Entity
-import java.time.LocalDateTime
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverters
+import me.lgcode.neurowatch.model.DetectedObject
 
 @Entity(tableName = "video_clips")
 data class VideoClipEntity(
-    val id: String,
+    @PrimaryKey val id: Int,
     val videoUrl: String,
     val thumbnail: String,
-    val date: String
+    val date: String,
+    @TypeConverters(DetectedObjectListTypeConverter::class)
+    val detectedObjects: List<DetectedObject>,
 )

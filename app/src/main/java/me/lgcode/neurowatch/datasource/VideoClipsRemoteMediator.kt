@@ -7,21 +7,24 @@ import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import me.lgcode.neurowatch.api.NeurowatchApi
 import me.lgcode.neurowatch.db.NeurowatchDB
+import me.lgcode.neurowatch.db.VideoClipEntity
 import me.lgcode.neurowatch.model.VideoClip
+import me.lgcode.neurowatch.model.toEntity
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
+import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
-class VideoClipsRemoteMediator(
+class VideoClipsRemoteMediator @Inject constructor(
     private val database: NeurowatchDB,
     private val api: NeurowatchApi
-): RemoteMediator<Int, VideoClip>() {
+): RemoteMediator<Int, VideoClipEntity>() {
     val videoClipDao = database.videoClipDao()
     
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, VideoClip>
+        state: PagingState<Int, VideoClipEntity>
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
@@ -39,15 +42,15 @@ class VideoClipsRemoteMediator(
             val result = api.getVideos(loadKey)
             
             if (result.isSuccessful) {
-                result.body()?.let {
+                result.body()?.let { result ->
                     database.withTransaction {
                         if (loadType == LoadType.REFRESH) {
                             videoClipDao.clearAll()
                         }
-                        videoClipDao.insertAll(it)
+                        videoClipDao.insertAll(result.map { videoClip -> videoClip.toEntity() })
                     }                    
                     MediatorResult.Success(
-                        endOfPaginationReached = it.size < state.config.pageSize
+                        endOfPaginationReached = result.size < state.config.pageSize
                     )
                 } ?: MediatorResult.Error(Throwable("videos could not be fetch")) 
             } else {

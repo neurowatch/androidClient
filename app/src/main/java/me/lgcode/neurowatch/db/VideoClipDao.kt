@@ -11,10 +11,13 @@ import me.lgcode.neurowatch.model.VideoClip
 interface VideoClipDao {
     
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(videoClips: List<VideoClip>)
+    suspend fun insertAll(videoClips: List<VideoClipEntity>)
+    
+    @Query("SELECT * FROM video_clips WHERE id = :id")
+    suspend fun get(id: Int): VideoClipEntity?
     
     @Query("SELECT * FROM video_clips")
-    fun pagingSource(): PagingSource<Int, VideoClip>
+    fun pagingSource(): PagingSource<Int, VideoClipEntity>
     
     @Query("DELETE FROM video_clips")
     suspend fun clearAll()

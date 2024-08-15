@@ -75,7 +75,7 @@ dependencies {
     implementation(libs.paging3.compose)
     implementation(libs.coil)
     implementation(libs.androidx.room)
-    annotationProcessor(libs.androidx.room.compiler)
+    kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
     

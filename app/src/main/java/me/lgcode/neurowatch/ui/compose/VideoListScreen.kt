@@ -36,7 +36,8 @@ fun VideoListScreen(
         Box(modifier = Modifier.padding(it)) {
             VideoClipList(
                 videoClipsList = videoClipsList,
-                onVideoClipClick = {
+                onVideoClipClick = { videoClip ->
+                    navController.navigate("video_detail/${videoClip.id}")
                 }
             )
         }
