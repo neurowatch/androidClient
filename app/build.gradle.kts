@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.hilt.plugin)
     alias(libs.plugins.jetbrains.kotlin.kapt)
     alias(libs.plugins.jetbrains.kotlin.parcelize)
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -68,6 +69,7 @@ dependencies {
     kapt(libs.hilt.compiler)
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
+    implementation(libs.okhttp3)
     implementation(libs.logging.interceptor)
     implementation(libs.gson)
     implementation(libs.timber)
@@ -78,6 +80,12 @@ dependencies {
     kapt(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
     implementation(libs.androidx.room.paging)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.messaging)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

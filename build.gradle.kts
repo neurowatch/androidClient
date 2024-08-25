@@ -5,4 +5,5 @@ plugins {
     alias(libs.plugins.hilt.plugin) apply false
     alias(libs.plugins.jetbrains.kotlin.kapt) apply false
     alias(libs.plugins.jetbrains.kotlin.parcelize) apply false
+    alias(libs.plugins.google.services) apply false
 }

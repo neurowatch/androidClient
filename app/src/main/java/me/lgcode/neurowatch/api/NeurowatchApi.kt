@@ -1,9 +1,10 @@
 package me.lgcode.neurowatch.api
 
+import me.lgcode.neurowatch.model.FCMTokenRequest
 import me.lgcode.neurowatch.model.LoginRequest
 import me.lgcode.neurowatch.model.Settings
 import me.lgcode.neurowatch.model.Token
-import me.lgcode.neurowatch.model.VideoClip
+import me.lgcode.neurowatch.model.VideoResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -12,22 +13,24 @@ import retrofit2.http.Query
 
 interface NeurowatchApi {
     
-    @GET("videos")
+    @GET("videos/")
     suspend fun getVideos(
         @Query("page") page: Int
-    ): Response<List<VideoClip>>
+    ): Response<VideoResponse>
     
-    @GET("settings")
+    @GET("settings/")
     suspend fun getSettings(): Response<Settings>
     
     @POST
     suspend fun updateSettings(@Body settings: Settings): Response<Unit>
     
-    @POST("login")
+    @POST("login/")
     suspend fun login(
         @Body loginRequest: LoginRequest
     ): Response<Token>
     
-    @POST("logout")
-    suspend fun logout(): Response<Unit>
+    @POST("fcm_token/")
+    suspend fun saveFcmToken(
+        @Body fcmToken: FCMTokenRequest
+    ): Response<Unit>
 }

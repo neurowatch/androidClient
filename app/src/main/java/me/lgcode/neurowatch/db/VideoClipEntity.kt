@@ -12,5 +12,5 @@ data class VideoClipEntity(
     val thumbnail: String,
     val date: String,
     @TypeConverters(DetectedObjectListTypeConverter::class)
-    val detectedObjects: List<DetectedObject>,
+    val detectedObjects: List<DetectedObject>?,
 )

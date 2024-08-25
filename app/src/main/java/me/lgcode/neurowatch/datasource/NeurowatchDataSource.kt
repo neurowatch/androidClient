@@ -8,10 +8,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import kotlinx.coroutines.flow.Flow
 import me.lgcode.neurowatch.api.NeurowatchApi
-import me.lgcode.neurowatch.db.NeurowatchDB
 import me.lgcode.neurowatch.db.TokenDao
 import me.lgcode.neurowatch.db.VideoClipDao
 import me.lgcode.neurowatch.db.VideoClipEntity
+import me.lgcode.neurowatch.model.FCMTokenRequest
 import me.lgcode.neurowatch.model.LoginRequest
 import me.lgcode.neurowatch.model.Token
 import me.lgcode.neurowatch.model.VideoClip
@@ -73,6 +73,18 @@ class NeurowatchDataSource @Inject constructor(
         try { 
             tokenDao.clear()
             Result.success(Unit) 
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    
+    suspend fun saveFcmToken(fcmToken: FCMTokenRequest): Result<Unit> =
+        try {
+            val response = api.saveFcmToken(fcmToken)
+            if (response.isSuccessful) {
+                Result.success(Unit)
+            } else {
+                Result.failure(Exception(response.errorBody()?.string()))
+            }
         } catch (e: Exception) {
             Result.failure(e)
         }

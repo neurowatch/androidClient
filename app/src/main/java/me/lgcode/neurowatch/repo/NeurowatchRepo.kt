@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import me.lgcode.neurowatch.api.NeurowatchApi
 import me.lgcode.neurowatch.datasource.NeurowatchDataSource
+import me.lgcode.neurowatch.model.FCMTokenRequest
 import me.lgcode.neurowatch.model.LoginRequest
 import me.lgcode.neurowatch.model.VideoClip
 import me.lgcode.neurowatch.model.toModel
@@ -16,7 +17,10 @@ class NeurowatchRepo @Inject constructor(val dataSource: NeurowatchDataSource) {
     
     fun getVideos(): Flow<PagingData<VideoClip>> {
         return dataSource.getVideos().map { pagingData ->
-            pagingData.map { it.toModel() }
+            pagingData.map { 
+                Timber.d(it.toString())
+                it.toModel() 
+            }
         }
     }
     
@@ -27,4 +31,6 @@ class NeurowatchRepo @Inject constructor(val dataSource: NeurowatchDataSource) {
     suspend fun getToken() = dataSource.getToken()
     
     suspend fun clearToken() = dataSource.clearToken()
+    
+    suspend fun saveFcmToken(fcmToken: FCMTokenRequest) = dataSource.saveFcmToken(fcmToken)
 }

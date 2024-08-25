@@ -2,6 +2,7 @@ package me.lgcode.neurowatch.model
 
 import android.net.Uri
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import me.lgcode.neurowatch.db.VideoClipEntity
 import java.time.LocalDateTime
@@ -9,10 +10,10 @@ import java.time.LocalDateTime
 @Parcelize
 data class VideoClip(
     val id: Int,
-    val videoUrl: Uri,
+    @SerializedName("video") val videoUrl: Uri,
     val thumbnail: Uri,
     val date: LocalDateTime,
-    val detectedObjects: List<DetectedObject>,
+    val detectedObjects: List<DetectedObject>?,
 ): Parcelable
 
 fun VideoClip.toEntity(): VideoClipEntity {

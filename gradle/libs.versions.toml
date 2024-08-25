@@ -10,7 +10,7 @@ activityCompose = "1.9.1"
 composeBom = "2024.06.00"
 hilt = "2.48"
 retrofit = "2.11.0"
-loggingInterceptor = "3.12.0"
+okhttp3 = "4.12.0"
 gson = "2.10.1"
 timber = "5.0.1"
 paging3 = "3.3.2"
@@ -18,6 +18,9 @@ coil = "2.7.0"
 navigation = "2.7.7"
 hiltNavigationCompose = "1.2.0"
 room = "2.6.1"
+media3 = "1.2.0"
+googleServices = "4.4.2"
+firebaseBom = "33.1.2"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,7 +43,8 @@ hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", v
 hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hiltNavigationCompose"}
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
 retrofit-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor" }
+okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp3" }
+logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp3" }
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "timber" }
 paging3 = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging3" }
@@ -50,6 +54,11 @@ androidx-room = { group = "androidx.room", name = "room-runtime", version.ref = 
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+androidx-media3-exoplayer = { group = "androidx.media3", name = "media3-exoplayer", version.ref = "media3" }
+androidx-media3-ui = { group = "androidx.media3", name = "media3-ui", version.ref = "media3" }
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebaseBom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-messaging = { group = "com.google.firebase", name = "firebase-messaging" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -57,3 +66,4 @@ jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = 
 hilt-plugin = { id = "com.google.dagger.hilt.android", version.ref = "hilt"}
 jetbrains-kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 jetbrains-kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleServices"}

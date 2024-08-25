@@ -21,13 +21,13 @@ class VideoClipsPagingSource @Inject constructor(val api: NeurowatchApi) : Pagin
 
         return if (result.isSuccessful) {
             result.body()?.let {
-                val nextKey = if (it.isEmpty()) {
+                val nextKey = if (!it.next.isNullOrEmpty()) {
                     null
                 } else {
                     page + 1
                 }
                 LoadResult.Page(
-                    data = it,
+                    data = it.results,
                     prevKey = null,
                     nextKey = nextKey
                 )

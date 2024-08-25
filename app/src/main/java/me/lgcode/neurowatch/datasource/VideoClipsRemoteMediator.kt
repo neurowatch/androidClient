@@ -28,7 +28,7 @@ class VideoClipsRemoteMediator @Inject constructor(
     ): MediatorResult {
         return try {
             val loadKey = when (loadType) {
-                LoadType.REFRESH -> 0
+                LoadType.REFRESH -> 1
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
                     val lastItem =
@@ -47,10 +47,11 @@ class VideoClipsRemoteMediator @Inject constructor(
                         if (loadType == LoadType.REFRESH) {
                             videoClipDao.clearAll()
                         }
-                        videoClipDao.insertAll(result.map { videoClip -> videoClip.toEntity() })
+                        val videos = result.results.map { videoClip -> videoClip.toEntity() }
+                        videoClipDao.insertAll(videos)
                     }                    
                     MediatorResult.Success(
-                        endOfPaginationReached = result.size < state.config.pageSize
+                        endOfPaginationReached = !result.next.isNullOrEmpty()
                     )
                 } ?: MediatorResult.Error(Throwable("videos could not be fetch")) 
             } else {

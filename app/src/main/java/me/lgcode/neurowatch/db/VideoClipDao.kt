@@ -18,7 +18,10 @@ interface VideoClipDao {
     
     @Query("SELECT * FROM video_clips")
     fun pagingSource(): PagingSource<Int, VideoClipEntity>
-    
+
+    @Query("SELECT * FROM video_clips")
+    suspend fun getAll(): List<VideoClipEntity>
+
     @Query("DELETE FROM video_clips")
     suspend fun clearAll()
     
