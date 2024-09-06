@@ -31,10 +31,14 @@ class VideoClipsRemoteMediator @Inject constructor(
                 LoadType.REFRESH -> 1
                 LoadType.PREPEND -> return MediatorResult.Success(endOfPaginationReached = true)
                 LoadType.APPEND -> {
+                    // Obtains the first item because the list is ordered by most recent date
                     val lastItem =
-                        state.lastItemOrNull() ?: return MediatorResult.Success(
+                        state.firstItemOrNull() ?: return MediatorResult.Success(
                             endOfPaginationReached = true
                         )
+                    // Calculate the next page based on the latest item value and the page number
+                    // may be problematic if some elements are deleted, would be worth just 
+                    // using the returned next url from the api
                     lastItem.id / state.config.pageSize + 1
                 }
             }
@@ -51,7 +55,7 @@ class VideoClipsRemoteMediator @Inject constructor(
                         videoClipDao.insertAll(videos)
                     }                    
                     MediatorResult.Success(
-                        endOfPaginationReached = !result.next.isNullOrEmpty()
+                        endOfPaginationReached = result.next.isNullOrEmpty()
                     )
                 } ?: MediatorResult.Error(Throwable("videos could not be fetch")) 
             } else {

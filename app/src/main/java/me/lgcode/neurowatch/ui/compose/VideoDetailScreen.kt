@@ -33,7 +33,6 @@ fun VideoDetailScreen(
     videoId: Int
 ) {
     val state = viewModel.videoDetailState.collectAsState()
-    
     LaunchedEffect(Unit) {
         viewModel.fetchVideo(videoId)
     }
@@ -52,19 +51,16 @@ fun VideoDetailScreen(
 
 @Composable
 fun VideoPlayer(video: VideoClip) {
-    
     val context = LocalContext.current
     val exoPlayer = ExoPlayer.Builder(context).build()
     
     val mediaSource = remember(video.videoUrl) {
         MediaItem.fromUri(video.videoUrl)
     }
-    
     LaunchedEffect(mediaSource) {
         exoPlayer.setMediaItem(mediaSource)
         exoPlayer.prepare()
     }
-    
     DisposableEffect(Unit) {
         onDispose { 
             exoPlayer.release()

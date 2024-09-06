@@ -38,9 +38,7 @@ fun VideoListScreen(
     viewModel: VideoListViewModel = viewModel(),
     navController: NavController
 ) {
-    
     val videoClipsList = viewModel.videoClips.collectAsLazyPagingItems()
-    
     Scaffold(
         topBar = {
             TopAppBar(
@@ -62,7 +60,6 @@ fun VideoListScreen(
             navController.navigate("finalize")
         }
     }
-    
 }
 
 @Composable

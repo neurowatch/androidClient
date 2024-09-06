@@ -16,7 +16,7 @@ interface VideoClipDao {
     @Query("SELECT * FROM video_clips WHERE id = :id")
     suspend fun get(id: Int): VideoClipEntity?
     
-    @Query("SELECT * FROM video_clips")
+    @Query("SELECT * FROM video_clips ORDER BY date DESC")
     fun pagingSource(): PagingSource<Int, VideoClipEntity>
 
     @Query("SELECT * FROM video_clips")
